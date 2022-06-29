@@ -18,7 +18,7 @@ Just create a **Native C++** project to learn how to use C/C++ code in android p
 
 ## Pure Shared Library
 
-You can create a **Empty Activity** project and add shared libraries (.so files) into the project.
+You can create an **Empty Activity** project and add shared libraries (.so files) into the project.
 
 Manually create a `jniLibs` folder in the project `/app/src/main`directory, then put the libraries into it. In this demo, the library files are `libfirst.so` and `libsecond.so`.
 
@@ -71,7 +71,7 @@ You may see that there are 2 libraries, and one library depends the other one. T
 
 You can call a 3rd-party shared library (the .so file)  in the C/C++ native project.
 
-Put the shared library (.so file and the .h file)  into the cpp folder. in this demo, the library file is `libthird.so`.
+Put the shared library (.so file and the .h file)  into the cpp folder. For this demo, the library file is `libthird.so`.
 
 ```sh
 % tree app/src/main/cpp 
@@ -307,3 +307,41 @@ first/libs
     └── libfirst.so
 ```
 
+# Set ABI in build.gradle
+
+Edit the build.gradle in the project to set the ABI. For example, only use `armeabi-v7a` and `arm64-v8a` in the project.
+
+```python
+android {
+    buildTypes {
+        release {
+            // see https://developer.android.com/ndk/guides/application_mk
+            // Support arm in x86 emulator: https://developer.android.com/games/optimize/64-bit
+            ndk {
+                abiFilters "armeabi-v7a", "arm64-v8a"
+            }
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            ndk {
+                abiFilters "armeabi-v7a", "arm64-v8a"
+            }
+        }
+    }
+}
+```
+
+
+
+# References
+
++ Install NDK: https://developer.android.com/studio/projects/install-ndk
+
++ Use prebuilt libraries: https://developer.android.com/ndk/guides/prebuilts
+
++ Configure cmake: https://developer.android.com/studio/projects/configure-cmake
+
++ ABI Management: http://android-doc.github.io/ndk/guides/abis.html
+
+  
