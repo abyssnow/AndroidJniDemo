@@ -12,7 +12,7 @@ The Android Project can load C/C++ library built by NDK. The library can be:
 
 Just create a **Native C++** project to learn how to use C/C++ code in android program.
 
-![Native C++ project wizard](img/native_cpp_wizard.png)
+![](img/native_cpp_wizard.png)
 
 
 
@@ -65,11 +65,11 @@ public class MyNative {
 
 That's all.
 
-You may see that there are 2 libraries, and one library depends the other one. This is a very common usage scenario. Please go on to learn how to implement this.
+You may see that there are 2 libraries (libfrist.so and libsecond.so), and one library (libfirst.so) depends the other one (libsecond.so). This is a very common usage scenario.
 
 ## Part C/C++ code, Part Shared Library
 
-You can call a 3rd-party shared library (the .so file)  in the C/C++ native project.
+You can call a 3rd-party shared library (the .so file)  in the C/C++ native android project.
 
 Put the shared library (.so file and the .h file)  into the cpp folder. For this demo, the library file is `libthird.so`.
 
@@ -187,10 +187,10 @@ Java_com_xmac_jni_CodeNative_callBuf(JNIEnv *env, jobject clazz, jbyteArray src)
     free(_dstbuf);
 
     return jarray;
-}s
+}
 ```
 
-
+This demo shows how to call functions from a library (libthird.so)  in the C/C++ code in the android project.
 
 # Built Library by NDK
 
@@ -200,7 +200,7 @@ In the above demo, there are 3 libraries:
 + libsecond.so: which depends librist.so and  provides java interface.
 + libthird.so: which poverid java interface
 
-Let's learn how to build them.
+Let's learn how to build them. So that you can **provide your library to customers**.
 
 Create a `jni` folder and place the source file into this folder. Then create the `Andorid.mk` and `Application.mk` file.
 
@@ -230,7 +230,7 @@ libsrc % tree
 6 directories, 13 files
 ```
 
-For example, the `Anroid.mk` file for the first library.
+For example, the `Anroid.mk` file for the first library, which is a common library.
 
 ```makefile
 LOCAL_PATH := $(call my-dir)
